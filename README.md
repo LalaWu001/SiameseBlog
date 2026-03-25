@@ -1,12 +1,11 @@
-# MapleBlog
+# Siamese Blog
 
-[![Version](https://img.shields.io/github/package-json/v/maplezzzzzz/MapleBlog)](https://github.com/maplezzzzzz/MapleBlog/blob/main/package.json)
-[![Last Commit](https://img.shields.io/github/last-commit/maplezzzzzz/MapleBlog)](https://github.com/maplezzzzzz/MapleBlog/commits/main)
-[![Node](https://img.shields.io/badge/node-%E2%89%A518-339933?logo=node.js)](https://nodejs.org/en)
+![Node](https://img.shields.io/badge/node-%E2%89%A518-339933?logo=node.js)
+![Vercel](https://img.shields.io/badge/deployed%20on-vercel-000000?logo=vercel)
 
 ![网站截图](./public/favicon/logo.png)
 
-一个基于 Astro 的现代化内容站点，支持博客、笔记、友链、评论与本地搜索。
+Siamese 的个人博客网站，分享技术文章、CTF 解题报告、工具测评等内容。
 
 ## 🌟 核心特性
 
@@ -19,21 +18,11 @@
 - 📱 响应式设计：适配桌面、平板、手机多端
 - ⚡ 高性能：静态生成 + 边缘缓存，首屏极速加载
 
-### 网站截图
-首页截图
-![网站截图](./public/assets/uploads/ScreenShot.jpg)
-列表页截图
-![网站截图](./public/assets/uploads/ScreenShot1.jpg)
-内容页截图
-![网站截图2](./public/assets/uploads/ScreenShot2.jpg)
-友情链接
-![网站截图3](./public/assets/uploads/ScreenShot3.jpg)
-
 ### 技术栈
 - 前端框架：Astro 5.x + React 18 + TypeScript 5
 - 样式方案：Tailwind CSS 3 + PostCSS + SCSS
 - 内容管理：文件内容集合（Astro Content Collections）
-- 部署平台：Netlify / Vercel / 自建服务器
+- 部署平台：**Vercel** / Netlify / 自建服务器
 
 
 ## 🚀 快速开始
@@ -47,6 +36,12 @@
 - 本地开发：`npm run dev`，默认在 `http://localhost:4321/`
 - 生产构建：`npm run build`
 - 预览构建产物：`npm run preview`
+
+### 部署到 Vercel（推荐）
+1. 将项目推送到 GitHub
+2. 访问 [vercel.com](https://vercel.com) 并用 GitHub 账号登录
+3. 点击 "Add New" → "Project"，选择你的仓库
+4. Vercel 会自动检测 Astro 项目，直接点击 "Deploy"
 
 ### 环境变量（.env）
 在项目根目录创建 `.env`，常用变量如下：
@@ -71,15 +66,27 @@ PUBLIC_TWIKOO_ENV_ID=https://your-twikoo-service-url.example.com/.netlify/functi
 ---
 title: "文章标题"
 description: "文章摘要"
-pubDate: "2025-11-11"
-tags: ["随笔", "技术"]
-cover: "/assets/uploads/cover.jpg"
+createdAt: "2025-11-11"
+updatedAt: "2025-11-11"
+author: Siamese
+categories:
+  - 示例分类
+tags:
+  - 示例标签
+draft: false
+hideToc: false
 ---
 
 正文内容，Markdown格式……
 ```
 
 ## 📦 部署指南
+
+### Vercel（推荐）
+1. 将项目推送到 GitHub
+2. 访问 vercel.com 并用 GitHub 账号登录
+3. 点击 "Add New" → "Project"，选择你的仓库
+4. Vercel 会自动检测 Astro 项目，直接点击 "Deploy"
 
 ### Netlify
 - 构建命令：`npm run build`
@@ -109,7 +116,7 @@ cover: "/assets/uploads/cover.jpg"
 ## 📁 项目结构
 
 ```
-MapleBlog/
+SiameseBlog/
 ├── public/                 # 静态资源（图片、favicon）
 │   └── data/              # 本地数据（friends.json）
 ├── src/
@@ -141,12 +148,12 @@ MapleBlog/
 
 ## 📚 扩展文档
 
-- [LiquidGlass 组件使用说明](docs/LiquidGlass组件.md)
-- [Twikoo 自定义样式解决方案](docs/Twikoo自定义样式.md)
-- [友情链接配置指南](docs/友情链接配置.md)
-- [生成网站地图](docs/生成网站地图.md)
-- [网站流量统计设置指南](docs/网站流量统计.md)
-- [组件标签目录说明](docs/组件标签目录说明.md)
+- LiquidGlass 组件使用说明
+- Twikoo 自定义样式解决方案
+- 友情链接配置指南
+- 生成网站地图
+- 网站流量统计设置指南
+- 组件标签目录说明
 
 ## 🤝 贡献指南
 
@@ -154,12 +161,15 @@ MapleBlog/
 
 ## 📄 许可证
 
-本项目使用 MIT 许可证，详见 LICENSE。
+本项目使用 MIT 许可证，详见 [LICENSE](LICENSE)。
+
+© 2025 Siamese  
+基于 [MapleBlog](https://github.com/maplezzzzzz/MapleBlog) 框架开发
 
 ## 🙏 致谢
 
-- [Astro](https://astro.build/)
-- [Astrogon](https://github.com/astrogon/astrogon)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [liquid-glass-effect-macos](https://github.com/lucasromerodb/liquid-glass-effect-macos)
+- Astro
+- Astrogon
+- Tailwind CSS
+- liquid-glass-effect-macos
 
