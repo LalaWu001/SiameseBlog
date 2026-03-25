@@ -36,18 +36,18 @@ export type PageType = 'blog' | 'notes';
 //网站信息
 export const SITE_INFO = {
   // 网站名称
-  NAME: 'MapleBlog',
-  SITE_NAME: 'Maple Blog',
-  SUBNAME: '一个简单的Liquid Glass风格的静态网站系统',
+  NAME: 'SiameseBlog',
+  SITE_NAME: 'Siamese Blog',
+  SUBNAME: 'Siamese（Yuxuan Wu）的个人blog',
   // 网站描述
-  DESCRIPTION: 'Maple_CMS是一个简单的Liquid Glass风格的静态网站系统，用于快速搭建个人博客、技术分享、产品展示等网站。',
+  DESCRIPTION: 'SiameseBlog是Yuxuan Wu 的私人分享网站，希望能让你觉得有趣',
   // 网站 URL (生产环境)
   URL: 'http://localhost:4321',
-  AUTHOR: 'Maplezz',
+  AUTHOR: 'Siamese（Yuxuan Wu）',
   // 本地开发 URL
   DEV_URL: 'http://localhost:4321',
   LOGO_IMAGE: '/favicon/logo.png',
-  KEY_WORDS: '静态网站,静态网站系统,Maple_CMS',
+  KEY_WORDS: '信息安全与法学,学习思考资源分享,Siamese的生活记录',
   GOOGLE_ANALYTICS_ID: 'G-XXXXXX',  // 需改为你自己的Google Analytics ID
   BAIDU_ANALYTICS_ID: 'XXXXXXXXXX', // 需改为你自己的百度分析ID
   // 网站初始时间（用于计算运行时长）

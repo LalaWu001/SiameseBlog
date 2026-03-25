@@ -1,7 +1,7 @@
 ---
-title: MapleBlog
-content: MapleBlog 是一个基于 Astro 的静态站点生成器，用于创建博客、文档和其他类型的网站。
+title: SiameseBlog
+content: SIameseBlog 是 Yuxuan Wu 记录cs以及security学习路径的个人Blog
 button:
   label: 查看代码
-  link: https://github.com/MapleBlog/MapleBlog_public
+  link: https://github.com/LalaWu001/SiameseBlog
 ---

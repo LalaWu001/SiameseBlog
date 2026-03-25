@@ -44,15 +44,15 @@ export async function GET(context: APIContext) {
   const rssXml = `<?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>猫普的精神世界</title>
+    <title>Siamese</title>
     <description>一个独立开发者的精神自留地</description>
     <link>${siteUrl}/</link>
     <atom:link href="${siteUrl}/rss.xml" rel="self" type="application/rss+xml" />
     <lastBuildDate>${feedUpdated}</lastBuildDate>
     <pubDate>${feedUpdated}</pubDate>
     <language>zh-cn</language>
-    <managingEditor>Maplezz</managingEditor>
-    <webMaster>Maplezz</webMaster>
+    <managingEditor>Siamese</managingEditor>
+    <webMaster>Siamese</webMaster>
     <generator>Astro</generator>
     <ttl>60</ttl>
 
