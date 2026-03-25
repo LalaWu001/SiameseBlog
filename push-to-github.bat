@@ -2,57 +2,53 @@
 chcp 65001 >nul
 
 echo ========================================
-echo   SiameseBlog - 一键推送到 GitHub
+echo   SiameseBlog - Push to GitHub
 echo ========================================
 echo.
 
-echo [1/4] 检查 Git 状态...
+echo [1/4] Checking Git status...
 git status
 if %errorlevel% neq 0 (
-    echo 错误：Git 命令失败，请检查是否安装了 Git
+    echo Error: Git command failed, please check if Git is installed
     pause
     exit /b 1
 )
 echo.
 
-echo [2/4] 添加所有更改到暂存区...
+echo [2/4] Adding all changes to staging...
 git add .
 if %errorlevel% neq 0 (
-    echo 错误：添加文件失败
-    pause
+    echo Error: Failed to add files
     pause
     exit /b 1
 )
-echo ✓ 文件添加成功
+echo OK
 echo.
 
-echo [3/4] 提交更改...
-set /p commit_msg="请输入提交信息（按回车使用默认信息）: "
-if "%commit_msg%"=="" set commit_msg=更新项目
+echo [3/4] Committing changes...
+set /p commit_msg="Enter commit message (press Enter for default): "
+if "%commit_msg%"=="" set commit_msg=Update project
 git commit -m "%commit_msg%"
 if %errorlevel% neq 0 (
-    echo 错误：提交失败
+    echo Error: Commit failed
     pause
     exit /b 1
 )
-echo ✓ 提交成功
+echo OK
 echo.
 
-echo [4/4] 推送到 GitHub...
+echo [4/4] Pushing to GitHub...
 git push
 if %errorlevel% neq 0 (
-    echo 错误：推送失败
+    echo Error: Push failed
     pause
     exit /b 1
 )
-echo ✓ 推送成功
+echo OK
 echo.
 
 echo ========================================
-echo   推送完成！
+echo   Push completed!
 echo ========================================
-echo.
-echo 你的更改已成功推送到 GitHub。
-echo Vercel 将自动重新部署你的网站。
 echo.
 pause
