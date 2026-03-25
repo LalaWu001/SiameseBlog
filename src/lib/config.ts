@@ -42,7 +42,7 @@ export const SITE_INFO = {
   // 网站描述
   DESCRIPTION: 'SiameseBlog是Yuxuan Wu 的私人分享网站，希望能让你觉得有趣',
   // 网站 URL (生产环境)
-  URL: 'http://localhost:4321',
+  URL: 'https://siamese-blog.vercel.app',
   AUTHOR: 'Siamese（Yuxuan Wu）',
   // 本地开发 URL
   DEV_URL: 'http://localhost:4321',
