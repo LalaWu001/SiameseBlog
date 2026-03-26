@@ -68,6 +68,6 @@ export const UI_CONFIG = {
 
 // 获取当前环境的网站URL
 export const getSiteUrl = () => {
-  // 在构建时使用生产URL，开发时使用开发URL
-  return import.meta.env.PUBLIC_ENV === 'production' ? SITE_INFO.URL : SITE_INFO.DEV_URL;
+  // 使用 import.meta.env.SITE 来获取构建时的站点 URL
+  return import.meta.env.SITE || SITE_INFO.URL;
 };
