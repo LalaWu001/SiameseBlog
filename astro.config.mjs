@@ -37,7 +37,7 @@ export default defineConfig({
   env: {
     // 公共环境变量
     schema: {
-      PUBLIC_TWIKOO_ENV_ID: z.string().optional(),
+      PUBLIC_TWIKOO_ENV_ID: z.string().optional().default("twikoojs-navy.vercel.app"),
     },
   },
   server: {
