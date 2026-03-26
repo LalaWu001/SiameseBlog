@@ -3,6 +3,7 @@ import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 import AutoImport from "astro-auto-import";
 import { defineConfig } from "astro/config";
+import { z } from "zod";
 import remarkCollapse from "remark-collapse";
 import remarkToc from "remark-toc";
 import rehypeKatex from "rehype-katex";
@@ -19,7 +20,7 @@ const isDevelopment = NODE_ENV === 'development';
 const getSiteUrl = () => {
   switch (NODE_ENV) {
     case 'production':
-      return "https://siamese-blog.vercel.app"; // 请替换为您的实际域名
+      return "https://siameseblog.cn"; // 请替换为您的实际域名
     case 'development':
     case 'test':
     default:
@@ -33,6 +34,12 @@ export default defineConfig({
   base: "/",
   trailingSlash: "ignore",
   output: "static",
+  env: {
+    // 公共环境变量
+    schema: {
+      PUBLIC_TWIKOO_ENV_ID: z.string().optional(),
+    },
+  },
   server: {
     // 允许通过本机IP访问开发服务器
     host: true, // 或者使用 '0.0.0.0'

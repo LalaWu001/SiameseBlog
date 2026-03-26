@@ -1,7 +1,11 @@
+---
+import { SITE_INFO } from "@lib/config";
+---
+
 <div id="tcomment" class="markdown-content"></div>
 
 <script define:vars={{
-  twikooEnvId: import.meta.env.PUBLIC_TWIKOO_ENV_ID || ""
+  twikooEnvId: SITE_INFO.TWIKOO_ENV_ID || ""
 }}>
   document.addEventListener("astro:page-load", () => {
     function loadTwikoo() {

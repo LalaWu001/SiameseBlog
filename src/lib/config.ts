@@ -42,7 +42,7 @@ export const SITE_INFO = {
   // 网站描述
   DESCRIPTION: 'SiameseBlog是Yuxuan Wu 的私人分享网站，希望能让你觉得有趣',
   // 网站 URL (生产环境)
-  URL: 'https://siamese-blog.vercel.app',
+  URL: 'https://siameseblog.cn',
   AUTHOR: 'Siamese（Yuxuan Wu）',
   // 本地开发 URL
   DEV_URL: 'http://localhost:4321',
@@ -50,6 +50,8 @@ export const SITE_INFO = {
   KEY_WORDS: '信息安全与法学,学习思考资源分享,Siamese的生活记录',
   GOOGLE_ANALYTICS_ID: 'G-XXXXXX',  // 需改为你自己的Google Analytics ID
   BAIDU_ANALYTICS_ID: 'XXXXXXXXXX', // 需改为你自己的百度分析ID
+  // Twikoo 评论系统 envId
+  TWIKOO_ENV_ID: 'twikoojs-navy.vercel.app',
   // 网站初始时间（用于计算运行时长）
   START_DATE: '2025-07-12',
   // ICP 备案信息
