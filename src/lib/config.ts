@@ -50,8 +50,6 @@ export const SITE_INFO = {
   KEY_WORDS: '信息安全与法学,学习思考资源分享,Siamese的生活记录',
   GOOGLE_ANALYTICS_ID: 'G-XXXXXX',  // 需改为你自己的Google Analytics ID
   BAIDU_ANALYTICS_ID: 'XXXXXXXXXX', // 需改为你自己的百度分析ID
-  // Twikoo 评论系统 envId
-  TWIKOO_ENV_ID: 'twikoojs-navy.vercel.app',
   // 网站初始时间（用于计算运行时长）
   START_DATE: '2025-07-12',
   // ICP 备案信息
@@ -68,6 +66,6 @@ export const UI_CONFIG = {
 
 // 获取当前环境的网站URL
 export const getSiteUrl = () => {
-  // 使用 import.meta.env.SITE 来获取构建时的站点 URL
-  return import.meta.env.SITE || SITE_INFO.URL;
+  // 在构建时使用生产URL，开发时使用开发URL
+  return import.meta.env.PUBLIC_ENV === 'production' ? SITE_INFO.URL : SITE_INFO.DEV_URL;
 };
