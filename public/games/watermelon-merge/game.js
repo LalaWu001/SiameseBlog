@@ -254,7 +254,8 @@ function init() {
     canvas.addEventListener('mousemove', handleMouseMove);
     canvas.addEventListener('click', handleClick);
     canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
-    canvas.addEventListener('touchstart', handleClick, { passive: false });
+    canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+    canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
 
     // 生成第一个水果
     spawnNewFruit();
@@ -512,8 +513,52 @@ function handleMouseMove(e) {
 function handleTouchMove(e) {
     e.preventDefault();
     const rect = canvas.getBoundingClientRect();
-    mouseX = e.touches[0].clientX - rect.left;
-    mouseY = e.touches[0].clientY - rect.top;
+    const currentX = e.touches[0].clientX - rect.left;
+    const currentY = e.touches[0].clientY - rect.top;
+    
+    // 计算移动距离
+    const dx = currentX - touchStartX;
+    const dy = currentY - touchStartY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    
+    // 如果移动超过10px，标记为已移动
+    if (distance > 10) {
+        hasMoved = true;
+    }
+    
+    mouseX = currentX;
+    mouseY = currentY;
+}
+
+// 处理触摸开始
+let touchStartX = 0;
+let touchStartY = 0;
+let isTouching = false;
+let hasMoved = false;
+
+function handleTouchStart(e) {
+    if (isGameOver) return;
+    
+    e.preventDefault();
+    const rect = canvas.getBoundingClientRect();
+    touchStartX = e.touches[0].clientX - rect.left;
+    touchStartY = e.touches[0].clientY - rect.top;
+    isTouching = true;
+    hasMoved = false;
+}
+
+// 处理触摸结束
+function handleTouchEnd(e) {
+    if (isGameOver) return;
+    
+    e.preventDefault();
+    isTouching = false;
+    
+    // 只有当用户没有移动太多时才投放水果（区分滑动和点击）
+    if (currentFruit && isWaitingForDrop && !hasMoved) {
+        isWaitingForDrop = false;
+        dropFruit();
+    }
 }
 
 // 处理点击
