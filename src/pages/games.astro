@@ -1,0 +1,81 @@
+---
+import BaseLayout from "@components/base/BaseLayout.astro";
+import PageHeader from "@components/common/PageHeader.astro";
+import LiquidGlass from "@components/common/LiquidGlassLess.astro";
+import { SITE_INFO } from "@lib/config";
+
+const siteName = SITE_INFO?.SITE_NAME || "Siamese Blog";
+
+const games = [
+  {
+    id: 1,
+    name: "西瓜合成游戏",
+    description: "使用 HTML5 Canvas 实现的西瓜合成游戏，支持电脑和手机，无需下载即可在线游玩",
+    url: "/games/watermelon-merge/index.html",
+    image: "🍉",
+    tags: ["HTML5", "Canvas", "JavaScript"],
+    featured: true
+  }
+];
+---
+
+<BaseLayout title="在线游戏 - {siteName}">
+  <PageHeader title="在线游戏" subtitle="休闲娱乐，放松心情" />
+
+  <div class="container mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {games.map((game) => (
+        <LiquidGlass
+          enableGlassEffect
+          containerType="card"
+          wrapperClass="rounded-xl overflow-hidden hover:scale-105 transition-transform duration-300"
+          textClass="p-6"
+          effectClass="rounded-xl"
+          tintClass="rounded-xl"
+          shineClass="rounded-xl"
+        >
+          <a href={game.url} target="_blank" class="block h-full">
+            <div class="text-6xl text-center mb-4">{game.image}</div>
+            <h3 class="text-xl font-bold text-txt-p dark:text-darkmode-txt-p mb-2">
+              {game.name}
+            </h3>
+            <p class="text-sm text-txt-s dark:text-darkmode-txt-s mb-4">
+              {game.description}
+            </p>
+            <div class="flex flex-wrap gap-2">
+              {game.tags.map((tag) => (
+                <span class="px-2 py-1 text-xs bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded-full">
+                  {tag}
+                </span>
+              ))}
+            </div>
+            {game.featured && (
+              <div class="mt-4 inline-block px-3 py-1 text-xs font-bold bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 rounded-full">
+                ⭐ 推荐
+              </div>
+            )}
+          </a>
+        </LiquidGlass>
+      ))}
+    </div>
+
+    {games.length === 0 && (
+      <div class="text-center py-16">
+        <div class="text-6xl mb-4">🎮</div>
+        <p class="text-txt-p dark:text-darkmode-txt-p text-lg">
+          暂无游戏，敬请期待
+        </p>
+      </div>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .glass-button {
+    transition: all 0.3s ease;
+  }
+
+  .glass-button:hover {
+    transform: translateY(-2px);
+  }
+</style>
