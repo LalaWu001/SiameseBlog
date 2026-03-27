@@ -1,4 +1,0 @@
-C:\Users\Wu060\source\repos\MNGA5.0\MNGA5.0\x64\Debug\MNGA5.0.exe
-C:\Users\Wu060\source\repos\MNGA5.0 - 副本\MNGA5.0\x64\Debug\MNGA5.0.exe
-C:\Users\Wu060\source\repos\MNGA5.0 - 副本 - 副本\MNGA5.0\x64\Debug\MNGA5.0.exe
-C:\Users\Wu060\source\repos\MNGA6.0\MNGA5.0\x64\Debug\MNGA5.0.exe
