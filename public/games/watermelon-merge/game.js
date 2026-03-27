@@ -489,7 +489,7 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // 绘制背景
-    ctx.fillStyle = 'rgba(143, 108, 184, 0.8)';
+    ctx.fillStyle = 'rgba(200, 180, 220, 0.8)';
     ctx.fillRect(0, gameHeight - BOTTOM_MARGIN, canvas.width, BOTTOM_MARGIN);
 
     // 绘制分隔线
