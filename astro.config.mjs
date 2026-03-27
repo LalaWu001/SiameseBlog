@@ -36,7 +36,11 @@ export default defineConfig({
   server: {
     // 允许通过本机IP访问开发服务器
     host: true, // 或者使用 '0.0.0.0'
-    port: 4321
+    port: 4321,
+    // 添加静态文件服务配置
+    fs: {
+      strict: false
+    }
   },
   build: {
     // 静态站点构建优化
