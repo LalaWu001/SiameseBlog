@@ -41,6 +41,13 @@ let mouseY = 100;
 let gameWidth = WINDOW_WIDTH;
 let gameHeight = WINDOW_HEIGHT;
 
+// 校徽图片
+const logoImages = [];
+for (let i = 0; i < FRUIT_TYPES; i++) {
+    logoImages[i] = new Image();
+    logoImages[i].src = `picture/logo${i}.png`;
+}
+
 // 水果类
 class Fruit {
     constructor(x, y, type) {
@@ -198,11 +205,33 @@ class Fruit {
             ctx.fillStyle = 'rgba(240, 240, 255, 0.3)';
             ctx.fill();
 
-            // 绘制水果主体
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = this.color;
-            ctx.fill();
+            // 绘制校徽图片背景（按比例缩放，填满圆形）
+            const logoImg = logoImages[this.type];
+            if (logoImg && logoImg.complete) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.clip();
+
+                // 计算缩放比例，确保图片填满圆形
+                const imgWidth = logoImg.width;
+                const imgHeight = logoImg.height;
+                const scale = Math.max(this.radius * 2 / imgWidth, this.radius * 2 / imgHeight);
+                const scaledWidth = imgWidth * scale;
+                const scaledHeight = imgHeight * scale;
+
+                // 居中绘制
+                const offsetX = this.x - scaledWidth / 2;
+                const offsetY = this.y - scaledHeight / 2;
+                ctx.drawImage(logoImg, offsetX, offsetY, scaledWidth, scaledHeight);
+                ctx.restore();
+            } else {
+                // 如果图片加载失败，显示原来的颜色
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
 
             // 绘制边框
             ctx.beginPath();
@@ -418,11 +447,33 @@ function drawPreview() {
     previewCtx.fillStyle = 'rgba(240, 240, 255, 0.3)';
     previewCtx.fill();
 
-    // 绘制水果主体
-    previewCtx.beginPath();
-    previewCtx.arc(previewCanvas.width / 2, previewCanvas.height / 2, radius, 0, Math.PI * 2);
-    previewCtx.fillStyle = FRUIT_COLORS[nextFruitType];
-    previewCtx.fill();
+    // 绘制校徽图片背景（按比例缩放，填满圆形）
+    const logoImg = logoImages[nextFruitType];
+    if (logoImg && logoImg.complete) {
+        previewCtx.save();
+        previewCtx.beginPath();
+        previewCtx.arc(previewCanvas.width / 2, previewCanvas.height / 2, radius, 0, Math.PI * 2);
+        previewCtx.clip();
+
+        // 计算缩放比例，确保图片填满圆形
+        const imgWidth = logoImg.width;
+        const imgHeight = logoImg.height;
+        const scale = Math.max(radius * 2 / imgWidth, radius * 2 / imgHeight);
+        const scaledWidth = imgWidth * scale;
+        const scaledHeight = imgHeight * scale;
+
+        // 居中绘制
+        const offsetX = previewCanvas.width / 2 - scaledWidth / 2;
+        const offsetY = previewCanvas.height / 2 - scaledHeight / 2;
+        previewCtx.drawImage(logoImg, offsetX, offsetY, scaledWidth, scaledHeight);
+        previewCtx.restore();
+    } else {
+        // 如果图片加载失败，显示原来的颜色
+        previewCtx.beginPath();
+        previewCtx.arc(previewCanvas.width / 2, previewCanvas.height / 2, radius, 0, Math.PI * 2);
+        previewCtx.fillStyle = FRUIT_COLORS[nextFruitType];
+        previewCtx.fill();
+    }
 
     // 绘制边框
     previewCtx.beginPath();
