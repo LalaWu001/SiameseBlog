@@ -1,6 +1,6 @@
 // 游戏常量配置
-const WINDOW_WIDTH = 520;
-const WINDOW_HEIGHT = 1600;
+const WINDOW_WIDTH = 420;
+const WINDOW_HEIGHT = 800;
 const GRAVITY = 0.5;
 const FRICTION = 0.95;
 const ELASTICITY = 0.3;
@@ -12,9 +12,9 @@ const STABLE_THRESHOLD = 1.0;
 const REST_VELOCITY_THRESHOLD = 0.5;
 const COLLISION_RADIUS_FACTOR = 1.0;
 
-// 水果直径配置（缩小到原来的70%）
-const FRUIT_DIAMETERS = [56, 78, 101, 123, 146, 168, 190, 213];
-const PREVIEW_DIAMETER = 56;
+// 水果直径配置
+const FRUIT_DIAMETERS = [67.2, 93.6, 121.2, 147.6, 175.2, 201.6, 228, 255.6];
+const PREVIEW_DIAMETER = 67.2;
 
 // 水果颜色配置
 const FRUIT_COLORS = [
@@ -267,8 +267,8 @@ function init() {
 // 调整画布大小
 function resizeCanvas() {
     const container = document.getElementById('game-container');
-    gameWidth = Math.min(WINDOW_WIDTH, window.innerWidth - 40);
-    gameHeight = Math.min(WINDOW_HEIGHT, window.innerHeight - 40);
+    gameWidth = WINDOW_WIDTH;
+    gameHeight = WINDOW_HEIGHT;
     
     canvas.width = gameWidth;
     canvas.height = gameHeight;
