@@ -6,6 +6,8 @@
 - `src/components/base/Header.astro`: Shared site header and primary navigation.
 - `src/content/`: Blog posts, notes, and standalone content pages.
 - `public/`: Static files copied directly into the production build.
+- `src/pages/games.astro`: Online game listing linked from the main navigation.
+- `public/games/watermelon-merge/`: Self-contained 合成大南开 Canvas game and badge artwork.
 
 ## Project Showcase
 
