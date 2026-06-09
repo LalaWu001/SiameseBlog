@@ -6,6 +6,7 @@
 ### Added
 - 在 `public/projects/llmtrans/` 接入完整的 LLMtrans 产品展示子站。
 - 保留四个产品页面、独立背景视频、团队头像、客户端邀请码验证和 Release 下载入口。
+- 增强 LLMtrans 子站在移动端的背景视频兼容，隐藏原生 WebKit 控件并在首次触摸或页面恢复时重试播放。
 
 ### Changed
 - 将博客顶栏的“在线游戏”入口改为“参与项目”，并链接到 `/projects/llmtrans/`。

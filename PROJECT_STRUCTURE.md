@@ -16,7 +16,7 @@
 - `public/projects/llmtrans/vpn.html`: VPN product introduction.
 - `public/projects/llmtrans/team.html`: Team introduction.
 - `public/projects/llmtrans/styles.css`: Shared responsive presentation styles.
-- `public/projects/llmtrans/script.js`: Shared navigation, feature notices, video handling, reveal effects, and invitation-gated client downloads.
+- `public/projects/llmtrans/script.js`: Shared navigation, feature notices, mobile background-video playback recovery, reveal effects, and invitation-gated client downloads.
 - `public/projects/llmtrans/IMG_5716.PNG`: Shared project icon.
 - `public/projects/llmtrans/avatar/`: Team portraits used by the showcase.
 
