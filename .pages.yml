@@ -1,0 +1,181 @@
+media:
+  - name: content_images
+    label: 正文图片
+    input: public/uploads
+    output: /uploads
+    categories: [image]
+  - name: astro_images
+    label: 封面与相册
+    input: src/assets/uploads
+    output: "@assets/uploads"
+    categories: [image]
+
+settings:
+  content:
+    merge: true
+  commit:
+    identity: user
+
+content:
+  - name: blog
+    label: 博客文章
+    type: collection
+    path: src/content/blog
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    exclude: ["-index.md"]
+    view:
+      primary: title
+      fields: [title, createdAt, draft]
+      sort: [createdAt, title]
+      default:
+        sort: createdAt
+        order: desc
+    fields:
+      - { name: title, label: 标题, type: string, required: true }
+      - { name: description, label: 摘要, type: text }
+      - { name: createdAt, label: 创建日期, type: date, required: true }
+      - { name: updatedAt, label: 更新日期, type: date }
+      - { name: author, label: 作者, type: string }
+      - name: image
+        label: 封面图
+        type: image
+        options:
+          media: astro_images
+          path: src/assets/uploads/blog
+          extensions: [jpg, jpeg, png, webp]
+          rename: true
+      - { name: imageAlt, label: 封面替代文字, type: string }
+      - { name: categories, label: 分类, type: string, list: true }
+      - { name: tags, label: 标签, type: string, list: true }
+      - { name: draft, label: 草稿, type: boolean }
+      - { name: hideToc, label: 隐藏目录, type: boolean }
+      - name: body
+        label: 正文
+        type: rich-text
+        options:
+          media: content_images
+          path: public/uploads/blog
+          rename: true
+          switcher: true
+
+  - name: notes
+    label: 动态
+    type: collection
+    path: src/content/notes
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    exclude: ["-index.md"]
+    view:
+      primary: title
+      fields: [title, createdAt]
+      sort: [createdAt, title]
+      default:
+        sort: createdAt
+        order: desc
+    fields:
+      - { name: title, label: 标题, type: string, required: true }
+      - { name: description, label: 摘要, type: text }
+      - { name: createdAt, label: 创建日期, type: date, required: true }
+      - { name: tags, label: 标签, type: string, list: true }
+      - { name: mood, label: 心情, type: string }
+      - { name: location, label: 地点, type: string }
+      - name: images
+        label: 图片
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{alt}"
+        fields:
+          - name: src
+            label: 图片
+            type: image
+            required: true
+            options:
+              media: astro_images
+              path: src/assets/uploads/notes
+              extensions: [jpg, jpeg, png, webp]
+              rename: true
+          - { name: alt, label: 图片描述, type: string }
+      - { name: draft, label: 草稿, type: boolean }
+      - name: body
+        label: 正文
+        type: rich-text
+        options:
+          media: content_images
+          path: public/uploads/notes
+          rename: true
+          switcher: true
+
+  - name: drinks
+    label: 微醺小记
+    type: collection
+    path: src/content/drinks
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      primary: title
+      fields: [title, brand, tastedAt, rating, draft]
+      sort: [tastedAt, title]
+      search: [title, brand, drinkTypes]
+      default:
+        sort: tastedAt
+        order: desc
+    fields:
+      - { name: title, label: 酒名 / 标题, type: string, required: true }
+      - { name: description, label: 一句话评价, type: text }
+      - { name: createdAt, label: 创建日期, type: date, required: true }
+      - { name: tastedAt, label: 品饮日期, type: date }
+      - { name: brand, label: 品牌 / 酒厂, type: string }
+      - { name: origin, label: 产地, type: string }
+      - { name: alcoholByVolume, label: 酒精度（% ABV）, type: number }
+      - name: rating
+        label: 评分（0–5）
+        type: number
+        required: true
+        options:
+          min: 0
+          max: 5
+          step: 0.5
+      - name: drinkTypes
+        label: 酒类标签
+        type: string
+        list: true
+        required: true
+      - name: cover
+        label: 封面图
+        type: image
+        options:
+          media: astro_images
+          path: src/assets/uploads/drinks
+          extensions: [jpg, jpeg, png, webp]
+          rename: true
+      - { name: coverAlt, label: 封面替代文字, type: string }
+      - name: images
+        label: 更多图片
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{alt}"
+        fields:
+          - name: src
+            label: 图片
+            type: image
+            required: true
+            options:
+              media: astro_images
+              path: src/assets/uploads/drinks
+              extensions: [jpg, jpeg, png, webp]
+              rename: true
+          - { name: alt, label: 图片描述, type: string }
+      - { name: draft, label: 草稿, type: boolean }
+      - name: body
+        label: 完整评价
+        type: rich-text
+        options:
+          media: content_images
+          path: public/uploads/drinks
+          rename: true
+          switcher: true

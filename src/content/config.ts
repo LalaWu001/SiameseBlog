@@ -117,6 +117,30 @@ const notes = defineCollection({
     }),
 });
 
+// 微醺小记：独立于博客和动态的酒类品鉴记录
+const drinks = defineCollection({
+  loader: glob({ pattern: "**\/[^_]*.{md,mdx}", base: "./src/content/drinks" }),
+  schema: ({ image }) =>
+    baseContent.extend({
+      cover: image().optional(),
+      coverAlt: z.string().default(""),
+      images: z
+        .array(
+          z.object({
+            src: image(),
+            alt: z.string().default(""),
+          }),
+        )
+        .optional(),
+      drinkTypes: z.array(z.string()).default([]),
+      brand: z.string().optional(),
+      origin: z.string().optional(),
+      alcoholByVolume: z.number().min(0).max(100).optional(),
+      rating: z.number().min(0).max(5).default(0),
+      tastedAt: z.date().optional(),
+    }),
+});
+
 
 // 页面集合
 const pages = defineCollection({
@@ -192,6 +216,7 @@ export const collections = {
   categories,
   tags,
   notes,
+  drinks,
   pages,
   home,
   search,

@@ -1,0 +1,323 @@
+---
+import BaseLayout from "@components/base/BaseLayout.astro";
+import Comment from "@components/base/Comment.astro";
+import LiquidGlass from "@components/common/LiquidGlassLess.astro";
+import Rating from "@components/tipsy/Rating.astro";
+import { formatDate } from "@lib/formatDate";
+import { slugify } from "@lib/textConverter";
+import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
+
+export async function getStaticPaths() {
+  const drinks = await getCollection("drinks", ({ data }) => !data.draft);
+  return drinks.map((entry) => ({
+    params: { slug: slugify(entry.data.title) },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const {
+  title,
+  description,
+  createdAt,
+  cover,
+  coverAlt,
+  images,
+  drinkTypes,
+  brand,
+  origin,
+  alcoholByVolume,
+  rating,
+  tastedAt,
+} = entry.data;
+const { Content } = await render(entry);
+const gallery = images ?? [];
+const displayDate = tastedAt ?? createdAt;
+---
+
+<BaseLayout title={title} description={description || "微醺小记酒类评价"}>
+  <div class="tipsy-shell">
+    <div class="mx-auto max-w-5xl">
+      <a
+        href="/tipsy"
+        class="mb-4 inline-flex items-center gap-2 text-sm text-gray-700 transition-colors hover:text-orange-500 dark:text-gray-200"
+      >
+        <span aria-hidden="true">←</span> 返回微醺小记
+      </a>
+
+      <LiquidGlass
+        heavy
+        containerClass="mb-6 rounded-[30px]"
+        wrapperClass="dock overflow-hidden !p-0"
+        textClass="overflow-hidden"
+        animation="fadeDown"
+      >
+        {
+          cover && (
+            <div class="relative aspect-[16/9] max-h-[620px] overflow-hidden">
+              <Image
+                src={cover}
+                alt={coverAlt || `${title} 封面`}
+                widths={[720, 1080, 1440]}
+                sizes="(max-width: 1024px) 100vw, 1024px"
+                quality={90}
+                class="h-full w-full object-cover"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/5 to-transparent" />
+            </div>
+          )
+        }
+
+        <header
+          class={`relative p-6 sm:p-9 ${cover ? "-mt-28 text-white" : ""}`}
+        >
+          <div class="relative">
+            <div class="mb-4 flex flex-wrap gap-2">
+              {
+                drinkTypes.map((tag) => (
+                  <a
+                    href={`/tipsy?tag=${encodeURIComponent(tag)}`}
+                    class={`rounded-full border px-3 py-1 text-sm backdrop-blur-md transition-colors hover:bg-orange-500 hover:text-white ${
+                      cover
+                        ? "border-white/35 bg-black/25 text-white"
+                        : "border-orange-400/30 bg-white/20 dark:bg-black/20"
+                    }`}
+                  >
+                    #{tag}
+                  </a>
+                ))
+              }
+            </div>
+            {
+              brand && (
+                <p
+                  class={`mb-2 text-sm font-bold tracking-[0.2em] ${
+                    cover ? "text-orange-200" : "text-orange-500"
+                  }`}
+                >
+                  {brand}
+                </p>
+              )
+            }
+            <h1
+              class={`text-3xl font-bold sm:text-5xl ${cover ? "!text-white" : ""}`}
+            >
+              {title}
+            </h1>
+            {
+              description && (
+                <p
+                  class={`mt-4 max-w-3xl text-base leading-7 sm:text-lg ${
+                    cover
+                      ? "text-white/90"
+                      : "text-txt-s dark:text-darkmode-txt-s"
+                  }`}
+                >
+                  {description}
+                </p>
+              )
+            }
+          </div>
+        </header>
+      </LiquidGlass>
+
+      <div class="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_280px]">
+        <div>
+          <LiquidGlass
+            heavy
+            containerClass="rounded-[28px]"
+            wrapperClass="dock"
+            textClass="p-5 sm:p-8"
+            animation="fadeRight"
+          >
+            {
+              gallery.length > 0 && (
+                <div class="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-3">
+                  {gallery.map((photo, index) => (
+                    <button
+                      class={`tipsy-photo group relative overflow-hidden rounded-2xl ${
+                        index === 0 ? "col-span-2 row-span-2" : ""
+                      }`}
+                      type="button"
+                      data-gallery-image
+                      aria-label={`查看图片 ${index + 1}`}
+                    >
+                      <Image
+                        src={photo.src}
+                        alt={photo.alt || `${title} 图片 ${index + 1}`}
+                        widths={[360, 720]}
+                        sizes="(max-width: 640px) 50vw, 33vw"
+                        quality={88}
+                        class="aspect-square h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )
+            }
+
+            <article
+              class="prose max-w-none text-txt-s dark:prose-invert dark:text-darkmode-txt-s sm:prose-lg"
+            >
+              <Content />
+            </article>
+          </LiquidGlass>
+
+          <LiquidGlass
+            heavy
+            containerClass="mt-6 rounded-[28px]"
+            wrapperClass="dock"
+            textClass="p-5 sm:p-8"
+            animation="fadeUp"
+          >
+            <h2 class="mb-5 text-xl font-bold">杯边闲聊</h2>
+            <Comment />
+          </LiquidGlass>
+        </div>
+
+        <aside>
+          <LiquidGlass
+            heavy
+            containerClass="rounded-[28px] lg:sticky lg:top-28"
+            wrapperClass="dock"
+            textClass="p-5"
+            animation="fadeLeft"
+          >
+            <p class="mb-4 text-xs font-bold tracking-[0.2em] text-orange-500">
+              TASTING NOTE
+            </p>
+            <div class="mb-5">
+              <Rating value={rating} showValue />
+            </div>
+            <dl class="space-y-4 text-sm">
+              {
+                displayDate && (
+                  <div class="border-t border-black/5 pt-4 dark:border-white/10">
+                    <dt class="text-gray-500 dark:text-gray-400">品饮日期</dt>
+                    <dd class="mt-1 font-bold text-txt-p dark:text-darkmode-txt-p">
+                      <time datetime={displayDate.toISOString()}>
+                        {formatDate(displayDate)}
+                      </time>
+                    </dd>
+                  </div>
+                )
+              }
+              {
+                origin && (
+                  <div class="border-t border-black/5 pt-4 dark:border-white/10">
+                    <dt class="text-gray-500 dark:text-gray-400">产地</dt>
+                    <dd class="mt-1 font-bold text-txt-p dark:text-darkmode-txt-p">
+                      {origin}
+                    </dd>
+                  </div>
+                )
+              }
+              {
+                typeof alcoholByVolume === "number" && (
+                  <div class="border-t border-black/5 pt-4 dark:border-white/10">
+                    <dt class="text-gray-500 dark:text-gray-400">酒精度</dt>
+                    <dd class="mt-1 font-bold text-txt-p dark:text-darkmode-txt-p">
+                      {alcoholByVolume}% ABV
+                    </dd>
+                  </div>
+                )
+              }
+            </dl>
+          </LiquidGlass>
+        </aside>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<dialog id="tipsy-lightbox" class="tipsy-lightbox">
+  <button type="button" class="tipsy-lightbox__close" aria-label="关闭图片预览"
+    >×</button
+  >
+  <img src="" alt="" />
+</dialog>
+
+<style>
+  .tipsy-shell {
+    width: calc(100% - 1.5rem);
+    max-width: 1300px;
+    min-width: 0;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 1024px) {
+    .tipsy-shell {
+      width: calc(100% - 4rem);
+    }
+  }
+
+  .tipsy-photo {
+    min-height: 8rem;
+    background: rgb(249 115 22 / 0.08);
+  }
+
+  .tipsy-lightbox {
+    width: min(92vw, 1100px);
+    max-width: none;
+    padding: 0;
+    border: 0;
+    border-radius: 1.5rem;
+    overflow: visible;
+    background: transparent;
+  }
+
+  .tipsy-lightbox::backdrop {
+    background: rgb(0 0 0 / 0.82);
+    backdrop-filter: blur(10px);
+  }
+
+  .tipsy-lightbox img {
+    max-height: 86vh;
+    width: 100%;
+    border-radius: 1.5rem;
+    object-fit: contain;
+  }
+
+  .tipsy-lightbox__close {
+    position: absolute;
+    right: 0;
+    top: -3rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 999px;
+    color: white;
+    font-size: 1.75rem;
+    background: rgb(255 255 255 / 0.16);
+  }
+</style>
+
+<script>
+  function initTipsyGallery() {
+    const dialog = document.querySelector<HTMLDialogElement>("#tipsy-lightbox");
+    const dialogImage = dialog?.querySelector<HTMLImageElement>("img");
+    const closeButton = dialog?.querySelector<HTMLButtonElement>(
+      ".tipsy-lightbox__close",
+    );
+    if (!dialog || !dialogImage) return;
+
+    document
+      .querySelectorAll<HTMLButtonElement>("[data-gallery-image]")
+      .forEach((button) => {
+        button.addEventListener("click", () => {
+          const image = button.querySelector<HTMLImageElement>("img");
+          if (!image) return;
+          dialogImage.src = image.currentSrc || image.src;
+          dialogImage.alt = image.alt;
+          dialog.showModal();
+        });
+      });
+
+    closeButton?.addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  }
+
+  document.addEventListener("astro:page-load", initTipsyGallery);
+</script>

@@ -5,7 +5,12 @@
 - `src/pages/`: Astro routes for the blog, notes, search, links, games, and supporting pages.
 - `src/components/base/Header.astro`: Shared site header and primary navigation.
 - `src/content/`: Blog posts, notes, and standalone content pages.
+- `src/content/drinks/`: Git-backed tasting notes; `写作模板.md` is a private draft template.
+- `src/components/tipsy/`: Reusable tasting-note cards and rating presentation.
+- `src/pages/tipsy/index.astro`: Public tasting-note journal with client-side tag filtering.
+- `src/pages/tipsy/[slug].astro`: Static tasting-note detail pages with gallery, metadata, and comments.
 - `public/`: Static files copied directly into the production build.
+- `public/uploads/`: Pages CMS uploads used inside Markdown bodies.
 - `src/pages/games.astro`: Online game listing linked from the main navigation.
 - `public/games/watermelon-merge/`: Self-contained 合成大南开 Canvas game and badge artwork.
 
@@ -26,5 +31,7 @@ The deployed showcase entry is `/projects/llmtrans/`. Its pages remain a self-co
 
 - `astro.config.mjs`: Astro static-site configuration.
 - `package.json`: Development, build, preview, and Pagefind scripts.
+- `.pages.yml`: Pages CMS schemas for blog posts, notes, tasting notes, and repository-backed media.
+- `docs/CONTENT_EDITOR.md`: Owner-only browser editing and publishing instructions.
 - `dist/`: Generated production output; ignored by Git.
 - Vercel builds the Astro site from the GitHub repository and publishes the generated static output.

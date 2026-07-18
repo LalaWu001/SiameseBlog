@@ -1,0 +1,131 @@
+---
+import type { DrinksEntry } from "@/types";
+import LiquidGlass from "@components/common/LiquidGlassLess.astro";
+import Rating from "@components/tipsy/Rating.astro";
+import { Image } from "astro:assets";
+import { formatDate } from "@lib/formatDate";
+import { slugify } from "@lib/textConverter";
+
+interface Props {
+  entry: DrinksEntry;
+}
+
+const { entry } = Astro.props;
+const {
+  title,
+  description,
+  cover,
+  coverAlt,
+  images,
+  drinkTypes,
+  brand,
+  rating,
+  tastedAt,
+  createdAt,
+} = entry.data;
+const cardImage = cover ?? images?.[0]?.src;
+const cardImageAlt = coverAlt || images?.[0]?.alt || `${title} 酒款照片`;
+const displayDate = tastedAt ?? createdAt;
+const href = `/tipsy/${slugify(title)}`;
+---
+
+<article
+  class="tipsy-card h-full"
+  data-drink-card
+  data-tags={(drinkTypes ?? []).map((tag) => encodeURIComponent(tag)).join("|")}
+>
+  <LiquidGlass
+    heavy
+    containerClass="h-full rounded-[28px]"
+    wrapperClass="dock h-full !p-0 overflow-hidden"
+    textClass="h-full"
+    animation="fadeUp"
+  >
+    <a
+      href={href}
+      class="group flex h-full flex-col overflow-hidden rounded-[28px]"
+      aria-label={`查看酒评：${title}`}
+    >
+      <div
+        class="relative aspect-[4/3] overflow-hidden bg-orange-50/50 dark:bg-zinc-900/60"
+      >
+        {
+          cardImage ? (
+            <Image
+              src={cardImage}
+              alt={cardImageAlt}
+              widths={[480, 720, 960]}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              quality={85}
+              class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.035]"
+            />
+          ) : (
+            <div class="flex h-full w-full items-center justify-center">
+              <span class="select-none text-6xl opacity-70" aria-hidden="true">
+                🥃
+              </span>
+            </div>
+          )
+        }
+        <div
+          class="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/55 to-transparent"
+        >
+        </div>
+        {
+          drinkTypes?.[0] && (
+            <span class="absolute bottom-3 left-3 rounded-full border border-white/30 bg-black/30 px-3 py-1 text-xs font-bold text-white backdrop-blur-md">
+              {drinkTypes[0]}
+            </span>
+          )
+        }
+      </div>
+
+      <div class="flex flex-1 flex-col p-5">
+        <div class="mb-2 flex items-start justify-between gap-3">
+          <div>
+            {
+              brand && (
+                <p class="mb-1 text-xs font-bold uppercase tracking-[0.14em] text-orange-500">
+                  {brand}
+                </p>
+              )
+            }
+            <h2
+              class="line-clamp-2 text-xl font-bold text-txt-p transition-colors group-hover:text-orange-500 dark:text-darkmode-txt-p"
+            >
+              {title}
+            </h2>
+          </div>
+          <span
+            class="shrink-0 text-xl text-orange-400 transition-transform group-hover:translate-x-1"
+            aria-hidden="true">→</span
+          >
+        </div>
+
+        {
+          description && (
+            <p class="mb-4 line-clamp-3 text-sm leading-6 text-txt-s dark:text-darkmode-txt-s">
+              {description}
+            </p>
+          )
+        }
+
+        <div
+          class="mt-auto flex items-center justify-between gap-3 border-t border-black/5 pt-4 dark:border-white/10"
+        >
+          <Rating value={rating} size="sm" />
+          {
+            displayDate && (
+              <time
+                class="text-xs text-gray-600 dark:text-gray-300"
+                datetime={displayDate.toISOString()}
+              >
+                {formatDate(displayDate)}
+              </time>
+            )
+          }
+        </div>
+      </div>
+    </a>
+  </LiquidGlass>
+</article>
