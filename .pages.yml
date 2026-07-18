@@ -113,7 +113,7 @@ content:
     type: collection
     path: src/content/drinks
     format: yaml-frontmatter
-    filename: "{primary}.md"
+    filename: "{year}-{month}-{day}-{hour}{minute}{second}.md"
     view:
       primary: title
       fields: [title, brand, tastedAt, rating, draft]
